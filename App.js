@@ -1,30 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      // turn into Objective-c or java
-      <View style={styles.container}>
-        <View style={styles.redView} />
-        <View style={styles.yellowView} />
-        <View style={styles.redView} />
-        <View style={styles.yellowView} />
-        <View style={styles.redView} />
-        <View style={styles.yellowView} />
-        <View style={styles.redView} />
-        <View style={styles.yellowView} />
-        <View style={styles.redView} />
-        <View style={styles.yellowView} />
-        <View style={styles.redView} />
-        <View style={styles.yellowView} />
-        <View style={styles.redView} />
-        <View style={styles.yellowView} />
-        <View style={styles.redView} />
-        <View style={styles.yellowView} />
-        <View style={styles.redView} />
-        <View style={styles.yellowView} />
+export default class App extends Component {
+  // 정보를 받았는지 안받았는지 알려주는 indicator가 필요
+  state = {
+    isLoaded: false
+  }
 
+  render() {
+    const { isLoaded } = this.state;
+    // turn into Objective-c or java
+    return (
+      <View style={styles.container}>
+        {isLoaded ? null : (
+          <View style={styles.loading}>
+            <Text style={styles.loadingText}>Getting the fucking Weather </Text>
+          </View>
+        )}
       </View>
     );
   }
@@ -37,22 +29,16 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'space-around',
-    alignItems: 'stretch',
-    flexDirection: 'row',
-    flexWrap: 'wrap'
+    backgroundColor: '#fff'
   },
-  redView: {
-    height: 50,
-    width: 50,
-    backgroundColor: 'red',
-
+  loading: {
+    flex: 1,
+    backgroundColor: '#FdF6AA',
+    justifyContent: 'flex-end',
+    paddingLeft: 25
   },
-  yellowView: {
-    height: 50,
-    width: 50,
-    backgroundColor: 'yellow',
-
+  loadingText: {
+    fontSize: 38,
+    marginBottom: 100
   }
 });
