@@ -5,23 +5,26 @@ import Weather from "./Weather";
 export default class App extends Component {
   // 정보를 받았는지 안받았는지 알려주는 indicator가 필요
   state = {
-    isLoaded: false
+    isLoaded: false,
+    error: null
   };
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
-          isLoaded: true
+          error: 'Something went wrong'
         });
       },
       error => {
-        console.log(error);
+        this.setState({
+          error
+        })
       }
     );
   }
 
   render() {
-    const { isLoaded } = this.state;
+    const { isLoaded, error } = this.state;
     // turn into Objective-c or java
     return (
       <View style={styles.container}>
@@ -31,6 +34,7 @@ export default class App extends Component {
         ) : (
             <View style={styles.loading}>
               <Text style={styles.loadingText}>Getting the fucking Weather </Text>
+              {error ? <Text style={styles.errorText}>{error}</Text> : null}
             </View>
           )}
       </View>
@@ -46,6 +50,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff'
+  },
+  errorText: {
+    color: "red",
+    backgroundColor: "transparent",
+    marginBottom: 40
   },
   loading: {
     flex: 1,
