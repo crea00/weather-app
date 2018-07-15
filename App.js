@@ -5,7 +5,19 @@ import Weather from "./Weather";
 export default class App extends Component {
   // 정보를 받았는지 안받았는지 알려주는 indicator가 필요
   state = {
-    isLoaded: true
+    isLoaded: false
+  };
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.setState({
+          isLoaded: true
+        });
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   render() {
@@ -43,6 +55,6 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 38,
-    marginBottom: 100
+    marginBottom: 24
   }
 });
