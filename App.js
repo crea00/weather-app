@@ -38,13 +38,13 @@ export default class App extends Component {
   };
 
   render() {
-    const { isLoaded, error } = this.state;
+    const { isLoaded, error, temperature, name } = this.state;
     // turn into Objective-c or java
     return (
       <View style={styles.container}>
         <StatusBar hidden={true} />
         {isLoaded ? (
-          <Weather />
+          <Weather weatherName={name} temp={Math.floor(temperature - 273.15)} />
         ) : (
             <View style={styles.loading}>
               <Text style={styles.loadingText}>Getting the fucking Weather </Text>
